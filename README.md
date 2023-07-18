@@ -1,3 +1,5 @@
+# Clonegram
+A simple clone of instagram written in django and nextjs
 ## Deployment
 ### Deploying for Development
 Run application
