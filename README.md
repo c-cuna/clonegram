@@ -6,10 +6,14 @@ $ docker compose up -d --build
 ```
 
 Get logs
-```$ docker compose logs -f```
+```
+$ docker compose logs -f
+```
 ### Deploying for Production
 Run application
-```$ docker compose -f docker-compose.prod.yml up -d --build```
+```
+$ docker compose -f docker-compose.prod.yml up -d --build
+```
 
 Run Database scripts
 ```
@@ -18,4 +22,6 @@ $ docker compose -f docker-compose.prod.yml exec web python manage.py collectsta
 ```
 
 Get logs
-```$ docker compose logs -f```
+```
+$ docker compose logs -f
+```
