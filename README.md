@@ -1,7 +1,9 @@
 ## Deployment
 ### Deploying for Development
 Run application
-```$ docker compose up -d --build```
+```
+$ docker compose up -d --build
+```
 
 Get logs
 ```$ docker compose logs -f```
