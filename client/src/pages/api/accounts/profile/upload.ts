@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../../constants/constants';
 import formidable from "formidable";
 import fs from "fs";
 import { Blob } from "buffer";
@@ -34,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const fileObject = fs.readFileSync(profile_picture.filepath);
             const image: any = new Blob([fileObject]);
             newFormData.append("profile_picture", image, profile_picture.originalFilename);
-            const url = API_BASE + `/profile_picture/`;
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/profile_picture/`;
             const APIRes = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -46,17 +45,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             
             if (APIRes.status == 201) {
                 const data = await APIRes.json();
-                res.status(200).json(data);
+                return res.status(200).json(data);
             } else {
-                APIRes.text().then(text => {console.log(text)})
-                res.status(APIRes.status).json({ message: 'Internal Server Error' });
+
+                return res.status(APIRes.status).json({ message: 'Internal Server Error' });
             }
         } catch(err) {
-            res.status(500).json({ message: 'Internal Server Error' });
+            return res.status(500).json({ message: 'Internal Server Error' });
         }
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).json({
+        return res.status(405).json({
             error: `Method ${req.method} not allowed`
         });
     }

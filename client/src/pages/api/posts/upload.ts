@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
+
 import formidable from "formidable";
 import fs from "fs";
 import { Blob } from "buffer";
@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             newFormData.append("image_url", image, image_url.originalFilename);
             newFormData.append('description', description);
-            const url = API_BASE + "/posts/";
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + "/posts/";
 
             const APIRes = await fetch(url, {
                 method: "POST",
@@ -55,19 +55,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     ...data,
                 ]);
             } else {
-                APIRes.text().then(text => {console.log(text)})
+
                 res.status(APIRes.status).json({
                     error: data.error
                 });
             }
         } catch (err) {
-            res.status(500).json({ 
+            return res.status(500).json({ 
                 error: 'Internal Server Error'
             });
         }
 
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).json({ message: `Method ${req.method} not allowed` })
+        return res.status(405).json({ message: `Method ${req.method} not allowed` })
     }
 }

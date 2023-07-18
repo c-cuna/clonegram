@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+.git/
+.gitignore
+
+# Next JS
+.next/                # Existing Next.js builds
+node_modules/         # Installed inside container
+nginx/                # We'll create this directory soon
+
+# Docker
+.docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Python
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
+
+# Local PostgreSQL data
+data/

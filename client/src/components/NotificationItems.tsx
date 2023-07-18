@@ -107,5 +107,5 @@ export default function NotificationItems() {
             ))}
         </InfiniteScroll>
         :
-        <></>
+        <>No items</>
 }

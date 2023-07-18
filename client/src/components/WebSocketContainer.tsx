@@ -9,7 +9,7 @@ export const WSStateContext = createContext<WebSocket | null>(null);
 export default function WebsocketContainer({ children }: AuthProps) {
     const [token, setToken] = useState("");
     const isBrowser = typeof window !== "undefined";
-    const wsInstance = useMemo(() => (isBrowser && token != "") ? new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET + "/ws/notifications/?token=" + token ) : null, [token]);
+    const wsInstance = useMemo(() => (isBrowser && token != "") ? new WebSocket(process.env.NEXT_PUBLIC_MACHINE_WEBSOCKET + "/ws/notifications/?token=" + token ) : null, [token]);
 
     const fetchToken = async () => {
         const response = await fetch("/api/accounts/token/", {

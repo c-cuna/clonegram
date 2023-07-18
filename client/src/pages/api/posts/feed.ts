@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = API_BASE + '/feed/?page=' + page;
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + '/feed/?page=' + page;
             const APIRes = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (APIRes.status === 200) {
                 res.status(200).json(data);
             } else {
-                APIRes.text().then(text => {console.log(text)})
+
                 res.status(APIRes.status).json({
                     error: data.error
                 });

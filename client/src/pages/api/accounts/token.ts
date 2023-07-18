@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
@@ -19,11 +18,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
 
         } catch (err) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     } else {
         res.setHeader('Allow', ['GET']);
-        res.status(405).json({
+        return res.status(405).json({
             error: `Method ${req.method} not allowed`
         });
     }

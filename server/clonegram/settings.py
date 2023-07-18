@@ -13,6 +13,8 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
+
+# dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY =  os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
-ALLOWED_HOSTS = [os.getenv("DJANGO_HOST"), 'localhost', '127.0.0.1', '0.0.0.0' ]
+ALLOWED_HOSTS = [os.getenv("MACHINE_HOST"), os.getenv("SERVER_HOST"), 'localhost', '127.0.0.1', '0.0.0.0' ]
 
 # Application definition
 
@@ -48,7 +50,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
 
-
     # Project Apps
     'accounts',
     'chats',
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -96,11 +98,11 @@ ASGI_APPLICATION = 'clonegram.asgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DJANGO_DATABASE_NAME"),
-        'USER': os.getenv("DJANGO_DATABASE_USER"),
-        'PASSWORD': os.getenv("DJANGO_DATABASE_PASSWORD"),
-        'HOST': os.getenv("DJANGO_DATABASE_HOST"),
-        'PORT': os.getenv("DJANGO_DATABASE_PORT"),
+        'NAME': os.getenv("POSTGRES_NAME"),
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+        'HOST': os.getenv("POSTGRES_HOST"),
+        'PORT': os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -139,9 +141,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIR = (os.path.join(BASE_DIR, 'static'),)
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/app/media'
+STATIC_ROOT = '/app/static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -155,9 +160,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
 }
-
-# CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -171,17 +177,20 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    os.getenv("DJANGO_CLIENT_HOST")
+    'http://172.24.0.4:80',
+    os.getenv("CLIENT_HOST") + ":" + os.getenv("CLIENT_PORT")
 ]
 
 CORS_ORIGIN_WHITELIST = [
    'http://localhost:3000',
-   'http://127.0.0.1:3000'
+   'http://127.0.0.1:3000',
+   'http://172.24.0.4:80',
 ]
 
 
@@ -194,15 +203,11 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ),
 }
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
-
-MEDIA_URL = '/media/'
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [(os.getenv("REDIS_HOST"), 6379)],
         },
     },
 }

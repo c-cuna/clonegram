@@ -8,7 +8,6 @@ services:
       POSTGRES_NAME: $POSTGRES_NAME
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-    
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   
@@ -18,9 +17,9 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile
-    command: python3 manage.py runserver 0.0.0.0:8000
-    expose:
+      dockerfile: Dockerfile.prod
+    command: gunicorn clonegram.wsgi:application --bind 0.0.0.0:8000 --workers=4
+    port:
       - 8000
     volumes:
       - .:/server
@@ -29,12 +28,12 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - .env.prod
 
   asgiserver:
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - 9000
     command: daphne clonegram.asgi:application -b 0.0.0.0 -p 9000
@@ -46,19 +45,19 @@ services:
       - db
       - redis
     env_file:
-      - .env
-  
+      - .env.prod
+ 
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - 3000
     env_file:
-      - .env
+      - .env.prod
     depends_on:
       - server
-  
+
   nginx:
     build: ./nginx
     volumes:

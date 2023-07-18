@@ -9,14 +9,16 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 
 
 import os
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'clonegram.settings')
+django.setup()
+
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from notifications import routing
 
 from django.urls import re_path, path
 
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'clonegram.settings')
 import notifications.routing
 
 application = routing.application

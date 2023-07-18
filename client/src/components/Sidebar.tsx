@@ -94,7 +94,7 @@ function Sidebar() {
                 <ul className="flex justify-between lg:block lg:space-y-3 font-medium">
 
                     <li>
-                        <span className="ml-2 mr-3 pt-2 hidden sm:block lg:hidden xl:block justify-self-start self-center"> <a href="/">clonegram</a></span>
+                        <span className="ml-2 mr-3 pt-2 hidden sm:block lg:hidden xl:block justify-self-start self-center"> <a href="/">Clonegram</a></span>
 
                     </li>
 

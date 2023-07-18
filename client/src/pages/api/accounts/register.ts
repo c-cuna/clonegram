@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const {username, email, password, password2, first_name, last_name, bio, location} = req.body
@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
       
         try {
-            const url = API_BASE + `/accounts/register/`;
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/accounts/register/`;
             const APIRes = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -34,16 +34,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const data = await APIRes.json();
 
             if (APIRes.status === 201) {
-                res.status(201).json({ success: data.success });
+                return res.status(201).json({ success: data.success });
             } else {
-                APIRes.text().then(text => {console.log(text)})
+                console.log(APIRes.status);
+                // console.log(APIRes)
                 res.status(APIRes.status).json({ error: 'Internal Server Error' });
             }
         } catch(err) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).json({ 'error': `Method ${req.method} not allowed`});
+        return res.status(405).json({ 'error': `Method ${req.method} not allowed`});
     }
 };

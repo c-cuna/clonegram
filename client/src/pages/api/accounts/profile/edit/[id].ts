@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../../../constants/constants';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.query
@@ -24,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = API_BASE + `/accounts/user/update/` + id + '/';
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/accounts/user/update/` + id + '/';
             const APIRes = await fetch(url, {
                 method: 'PUT',
                 body: body,
@@ -37,17 +36,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             
             if (APIRes.status == 200) {
                 const data = await APIRes.json();
-                res.status(200).json(data);
+                return res.status(200).json(data);
             } else {
-                APIRes.text().then(text => {console.log(text)})
-                res.status(APIRes.status).json({ message: 'Internal Server Error' });
+
+                return res.status(APIRes.status).json({ message: 'Internal Server Error' });
             }
         } catch(err) {
-            res.status(500).json({ message: 'Internal Server Error' });
+            return res.status(500).json({ message: 'Internal Server Error' });
         }
     } else {
         res.setHeader('Allow', ['GET']);
-        res.status(405).json({
+        return res.status(405).json({
             error: `Method ${req.method} not allowed`
         });
     }

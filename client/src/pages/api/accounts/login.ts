@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if(req.method == 'POST'){
@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             password
         });
         try{
-            const url = API_BASE + "/accounts/login/";
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + "/accounts/login/";
             const APIRes = await fetch(url, {
                 method: "POST",
                 body: body,
@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     cookie.serialize(
                         'access', data.access, {
                             httpOnly: true,
-                            secure: process.env.NODE_ENV != 'development',
+                            // secure: process.env.NODE_ENV != 'development',
                             maxAge: 60 * 30,
                             sameSite: 'strict',
                             path: '/api/'
@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     cookie.serialize(
                         'refresh', data.refresh, {
                             httpOnly: true,
-                            secure: process.env.NODE_ENV != 'development',
+                            // secure: process.env.NODE_ENV != 'development',
                             maxAge: 60 * 60 * 24,
                             sameSite: 'strict',
                             path: '/api/'
@@ -42,19 +42,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     ),
                 ])
 
-                res.status(200).json({
+                return res.status(200).json({
                     message: 'Logged in successfully'
                 })
-            } else{
-                APIRes.text().then(text => {console.log(text)})
-                res.status(APIRes.status).json({message: 'Authentication Failed'});
+            } 
+            else{
+                // APIRes.text().then(text => {console.log(text)})
+                return res.status(APIRes.status).json({message: 'Authentication Failed'});
             }
         } catch(err){
-            res.status(500).json({ error: 'Internal Server Error' });
+            console.log(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
 
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).json({message: `Method ${req.method} not allowed`})
+        return res.status(405).json({message: `Method ${req.method} not allowed`})
     }
 }

@@ -1,4 +1,3 @@
-
 export type Profile = {
     profile_picture: string
 }

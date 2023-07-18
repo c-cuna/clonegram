@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
@@ -25,12 +24,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             )
         ]);
 
-        res.status(200).json({
+        return res.status(200).json({
             success: 'Successfully logged out'
         });
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).json({
+        return res.status(405).json({
             error: `Method ${req.method} now allowed`
         });
     }

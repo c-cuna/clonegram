@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE } from '../../../constants/constants';
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = API_BASE + `/likes/`;
+            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/likes/`;
             const APIRes = await fetch(url, {
                 method: 'POST',
                 body: body,
@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     message: 'Like successfully created'
                 });
             } else {
-                APIRes.text().then(text => {console.log(text)})
+
                 res.status(APIRes.status).json({ message: 'Something went wrong when uploading' });
             }
         } catch(err) {

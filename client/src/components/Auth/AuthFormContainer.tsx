@@ -8,7 +8,7 @@ export default function AuthFormContainer() {
     return (
         <>
             <Head>
-                <title>lonegram</title>
+                <title>Clonegram</title>
             </Head>
             <main>
                 <div className="flex items-center justify-center min-h-screen bg-gray-100">

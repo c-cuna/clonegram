@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  output: 'standalone',
   images: {
-    domains: ['192.168.57.1'],
+    domains: [process.env.NEXT_PUBLIC_SERVER_HOST],
     remotePatterns: [
       {
         protocol: 'http',
@@ -12,9 +13,6 @@ module.exports = {
     ],
   },
   reactStrictMode: true,
-  env: {
-    BASE_URL: process.env.BASE_URL,
-  },
   async headers() {
     return [
       {
