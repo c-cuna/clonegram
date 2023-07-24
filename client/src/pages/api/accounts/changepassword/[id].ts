@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/accounts/user/changepassword/` + id + '/';
+            const url = process.env.NEXT_PUBLIC_API + `/accounts/user/changepassword/` + id + '/';
             const APIRes = await fetch(url, {
                 method: 'PUT',
                 body: req.body,

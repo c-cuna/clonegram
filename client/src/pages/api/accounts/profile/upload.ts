@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const fileObject = fs.readFileSync(profile_picture.filepath);
             const image: any = new Blob([fileObject]);
             newFormData.append("profile_picture", image, profile_picture.originalFilename);
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/profile_picture/`;
+            const url = process.env.NEXT_PUBLIC_API + `/profile_picture/`;
             const APIRes = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -51,6 +51,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 return res.status(APIRes.status).json({ message: 'Internal Server Error' });
             }
         } catch(err) {
+            console.log(err);
+            console.log("changed");
             return res.status(500).json({ message: 'Internal Server Error' });
         }
     } else {

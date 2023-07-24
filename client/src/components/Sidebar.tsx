@@ -66,7 +66,8 @@ function Sidebar() {
             {isNotificationOpen &&
                 <div className="opacity-50 fixed inset-0 z-10 bg-black" onClick={() => toggleNotificationSidebar()} ></div>
             }
-            <div id="sidebar-notification" className={`w-full xl:w-96 z-20 ${isNotificationOpen ? 'translate-x-64' : '-translate-x-32'} bg-gray-100  fixed left-0 top-0  max-h-screen  overflow-auto transform transition-transform duration-300 ease-in-out dark:bg-zinc-600`}>
+            <div id="sidebar-notification" className={`w-full lg:w-96 z-20 ${isNotificationOpen ? 'translate-y-14 lg:translate-y-0 lg:translate-x-16 xl:translate-x-64' : '-translate-y-full lg:translate-y-0 lg:-translate-x-full xl:-translate-x-32'} bg-gray-100 fixed
+             left-0 top-0  max-h-screen  overflow-auto transform transition-transform duration-300 ease-in-out dark:bg-zinc-600`}>
                 <WebsocketContainer>
                     <NotificationItems />
                 </WebsocketContainer>
@@ -76,15 +77,16 @@ function Sidebar() {
             {isProfileMenuOpen &&
                 <div className="opacity-50 fixed inset-0 z-10 bg-black" onClick={() => toggleProfileMenuSidebar()} ></div>
             }
-            <div className={`w-full xl:w-48 z-20 ${isProfileMenuOpen ? 'translate-x-64' : '-translate-x-32'} fixed left-0 h-fit bg-gray-100 dark:bg-zinc-900 top-[220px] overflow-auto transform transition-transform duration-300 ease-in-out `}>
-                <ul className="flex justify-between bg-white p-4 dark:bg-zinc-900 lg:block lg:space-y-3 font-medium">
-                    <a href={"/" + user?.username} className="flex items-center p-2  rounded-md text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <div className={`w-full lg:w-48 z-20 ${isProfileMenuOpen ? 'translate-y-2 lg:translate-y-0 lg:translate-x-16 xl:translate-x-64' : '-translate-y-32 lg:translate-y-0 lg:-translate-x-32'} fixed 
+            left-0 h-fit bg-gray-100 dark:bg-zinc-900 lg:top-[170px] xl:top-[220px] overflow-auto transform transition-transform duration-300 ease-in-out `}>
+                <ul className="justify-between bg-white p-4 dark:bg-zinc-900 block lg:space-y-3 font-medium">
+                    <a href={"/" + user?.username} className="flex items-center p-2 rounded-md text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <SolidIcons.UserIcon className='btn w-6 lg:w-5 text-black-500' />
-                        <span className="hidden ml-2 xl:block">Go to Profile</span>
+                        <span className="ml-2">Go to Profile</span>
                     </a>
-                    <div onClick={() => logoutUser()} className="flex items-center p-2  rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                    <div onClick={() => logoutUser()} className="flex items-center p-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
                         <SolidIcons.ArrowRightOnRectangleIcon className='btn w-6 lg:w-5 text-black-500' />
-                        <span className="hidden ml-2 xl:block">Logout</span>
+                        <span className="ml-2">Logout</span>
                     </div>
                 </ul>
             </div>
@@ -173,7 +175,7 @@ function Sidebar() {
                             <button   className="mr-2 lg:flex items-center p-1 ml-1 border-2 border-gray-700 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:bg-gray-700  dark:hover:bg-gray-700">
                                 {theme == "dark" ? <OutlineIcons.MoonIcon className='btn w-5 lg:w-5'/> : <OutlineIcons.SunIcon className='btn w-5 lg:w-5' />}
                             </button>
-                            <span className="text-md">  {theme == "dark" ? "Dark" : "Light" }</span>
+                            <span className="text-md whitespace-nowrap hidden xl:block">  {theme == "dark" ? "Dark" : "Light" }</span>
                         </li>
                     </div>
                 </ul>

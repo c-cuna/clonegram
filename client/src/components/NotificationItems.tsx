@@ -92,7 +92,7 @@ export default function NotificationItems() {
         };
     }
 
-    return notifications ? <InfiniteScroll
+    return notifications && notifications.length > 0 ? <InfiniteScroll
             dataLength={notifications.length}
             next={loadNotifications}
             hasMore={hasNextPage}
@@ -107,5 +107,5 @@ export default function NotificationItems() {
             ))}
         </InfiniteScroll>
         :
-        <>No items</>
+        <div className="bg-neutral-100 dark:bg-zinc-700 mt-1 w-full shadow-sm flex justify-start items-center p-4 text-center">You have no active notifications</div>
 }

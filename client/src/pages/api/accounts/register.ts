@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
       
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/accounts/register/`;
+            const url = process.env.NEXT_PUBLIC_API + `/accounts/register/`;
             const APIRes = await fetch(url, {
                 method: 'POST',
                 headers: {

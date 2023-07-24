@@ -40,7 +40,7 @@ COPY ./entrypoint.prod.sh .
 RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.prod.sh
 RUN chmod +x  $APP_HOME/entrypoint.prod.sh
 COPY . .
-EXPOSE 8080
+EXPOSE 8000
 EXPOSE 9000
 RUN chown -R app:app $APP_HOME
 USER app

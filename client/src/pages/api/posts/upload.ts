@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             newFormData.append("image_url", image, image_url.originalFilename);
             newFormData.append('description', description);
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + "/posts/";
+            const url = process.env.NEXT_PUBLIC_API + "/posts/";
 
             const APIRes = await fetch(url, {
                 method: "POST",
@@ -55,12 +55,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     ...data,
                 ]);
             } else {
-
                 res.status(APIRes.status).json({
                     error: data.error
                 });
             }
         } catch (err) {
+            console.log(err);
             return res.status(500).json({ 
                 error: 'Internal Server Error'
             });

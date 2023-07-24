@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/posts/` + id + `/`;
+            const url = process.env.NEXT_PUBLIC_API + `/posts/` + id + `/`;
             const APIRes = await fetch(url, {
                 method: 'GET',
                 headers: {

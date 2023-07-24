@@ -83,7 +83,7 @@ export default function UploadProfilePictureForm() {
         }
         const form = new FormData();
         form.append("profile_picture", profile_picture[0]);
-
+            
         fetch("/api/accounts/profile/upload/", {
             method: "POST",
             body: form,

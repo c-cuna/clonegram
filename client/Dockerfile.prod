@@ -1,11 +1,11 @@
-FROM node:16-alpine AS dependencies
+FROM node:18-alpine AS dependencies
 RUN apk add --no-cache libc6-compat
 WORKDIR /home/app
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm install --omit=dev
 
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /home/app
 COPY --from=dependencies /home/app/node_modules ./node_modules
 COPY . .
@@ -13,7 +13,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 RUN npm run build
 
-FROM mhart/alpine-node:slim-14 AS runner
+FROM node:18-alpine AS runner
 WORKDIR /home/app
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm install --global pm2
@@ -22,7 +22,5 @@ COPY --from=builder /home/app/.next/standalone ./standalone
 COPY --from=builder /home/app/public /home/app/standalone/public
 COPY --from=builder /home/app/.next/static /home/app/standalone/.next/static
 RUN chown -R app:app /home/app
-EXPOSE 3000
-ENV PORT 3000
 USER app
-CMD ["pm2-runtime", "node", "./standalone/server.js"]
+CMD ["pm2-runtime", "./standalone/server.js"]

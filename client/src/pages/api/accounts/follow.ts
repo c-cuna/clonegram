@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/following/`;
+            const url = process.env.NEXT_PUBLIC_API + `/following/`;
             const APIRes = await fetch(url, {
                 method: 'POST',
                 body: body,

@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + '/feed/?page=' + page;
+            const url = process.env.NEXT_PUBLIC_API + '/feed/?page=' + page;
             const APIRes = await fetch(url, {
                 method: 'GET',
                 headers: {

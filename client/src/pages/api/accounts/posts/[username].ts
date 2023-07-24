@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
         try {
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + `/profile/posts/${username}/?page=${page}` ;
+            const url = process.env.NEXT_PUBLIC_API + `/profile/posts/${username}/?page=${page}` ;
             console.log(url);
             const APIRes = await fetch(url, {
                 method: 'GET',

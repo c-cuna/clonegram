@@ -1,1 +1,1 @@
-export const API_BASE = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + "/api/v1";
+export const API_BASE = process.env.NEXT_PUBLIC_API + "/api/v1";

@@ -19,7 +19,7 @@ services:
       context: ./server
       dockerfile: Dockerfile.prod
     command: gunicorn clonegram.wsgi:application --bind 0.0.0.0:8000 --workers=4
-    port:
+    expose:
       - 8000
     volumes:
       - .:/server

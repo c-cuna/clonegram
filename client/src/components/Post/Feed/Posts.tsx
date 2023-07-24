@@ -66,7 +66,7 @@ function Posts() {
         </InfiniteScroll>
         :
         <div className='rounded flex h-screen w-full justify-center items-center '>
-          <div className="text-center rounded-lg md:flex-row md:w-full bg-white  p-8">
+          <div className="text-center rounded-lg md:flex-row md:w-full bg-white dark:bg-zinc-900 p-8">
             <p>You currently are not following anyone.</p>
             <p className="text-blue-700 text-sm mt-2"><a href="/search">Go to Search</a></p>
           </div>

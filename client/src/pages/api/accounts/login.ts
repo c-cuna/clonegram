@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             password
         });
         try{
-            const url = process.env.NEXT_PUBLIC_SERVER_HTTP_HOST + "/accounts/login/";
+            const url = process.env.NEXT_PUBLIC_API + "/accounts/login/";
             const APIRes = await fetch(url, {
                 method: "POST",
                 body: body,
