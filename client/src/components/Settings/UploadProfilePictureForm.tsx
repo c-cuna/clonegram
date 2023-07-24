@@ -116,13 +116,12 @@ export default function UploadProfilePictureForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="w-full ">
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profile Picture</label>
             <Image
-                        src={ getProfilePicture()}
-                        alt="pending"
-                        className="w-full h-[550px] mb-6 object-cover"
-                        width={500}
-                        height={500}
-
-                 />
+                src={ getProfilePicture()}
+                alt="pending"
+                className="w-full h-[550px] mb-6 object-cover"
+                width={500}
+                height={500}
+                />
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
             <input {...register("profile_picture")} onChange={handleImageChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="profile_picture" type="file" />
             {errors.profile_picture && (

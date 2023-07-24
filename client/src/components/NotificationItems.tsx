@@ -100,10 +100,8 @@ export default function NotificationItems() {
             endMessage={<div className="mt-8"></div>}
             scrollableTarget="sidebar-notification"
         >
-            {notifications.length > 0 && notifications.map(notification => (
-             
-                    <NotificationItem {...notification} />
-              
+            {notifications.length > 0 && notifications.map( (notification, idx) => (
+                    <NotificationItem key={idx} {...notification} />
             ))}
         </InfiniteScroll>
         :

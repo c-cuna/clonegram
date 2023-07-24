@@ -14,8 +14,6 @@ function Post(props: IProps) {
     const { username } = user;
 
     return (
-        <>
-       
         <div className='my-8 rounded overflow-hidden shadow-md bg-white dark:bg-zinc-900 dark:border-white ' >
             <div>
  
@@ -33,9 +31,8 @@ function Post(props: IProps) {
             </div>
             
             <Image
-            
                 src={image_url}
-                alt="Picture of the author"
+                alt={username}
                 className='object-cover w-full'
                 width={500}
                 height={500}
@@ -47,7 +44,6 @@ function Post(props: IProps) {
             </div>
             <PartialComments post_id={id} comments={comments} comments_count={comments_count} />
         </div>
-        </>
     );
 }
 
