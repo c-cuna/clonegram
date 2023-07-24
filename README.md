@@ -1,5 +1,20 @@
 # Clonegram
-A simple clone of instagram written in django and nextjs
+A simple clone of instagram written in django and nextjs.
+
+## Features
+* User authentication and authorization
+* Post and Profile Picture image upload
+* Infinite scroll feed page
+* Modal pop-up per post
+* User comment, likes, and follow
+* Notification for comment, likes or follow
+* Light and Dark mode
+
+## Missing Features
+* Chat Component
+* User specific Dark/Light Mode
+* Celery Integraton
+
 ## Deployment
 ### Deploying for Development
 Run application
