@@ -52,7 +52,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
         } catch(err) {
             console.log(err);
-            console.log("changed");
             return res.status(500).json({ message: 'Internal Server Error' });
         }
     } else {

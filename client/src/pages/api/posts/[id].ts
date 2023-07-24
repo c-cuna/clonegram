@@ -28,7 +28,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     data,
                 });
             } else {
-
                 console.log(data.error);
                 res.status(APIRes.status).json({ error: 'Internal Server Error' });
             }

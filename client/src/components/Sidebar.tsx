@@ -32,7 +32,6 @@ function Sidebar() {
     };
 
     const getNotificationsCount = async () => {
-        console.log("getting data");
         const response = await fetch("/api/accounts/notification/count/", {
             method: "GET",
             credentials: "include",

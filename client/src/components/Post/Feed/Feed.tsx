@@ -8,7 +8,6 @@ function Feed() {
 
     useEffect(() => {
         setHasNextPage(false);
-        console.log(hasNextPage);
     }, [])
     return (
         <>

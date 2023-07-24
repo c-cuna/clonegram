@@ -4,7 +4,7 @@ interface IProps {
     closeModal: () => void
 }
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_MACHINE_HOST;
 
 export default function ClipboardModal(props: IProps){
     const { post_id ,closeModal }  = props;

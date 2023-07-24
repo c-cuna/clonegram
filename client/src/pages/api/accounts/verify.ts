@@ -6,7 +6,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         const cookies = cookie.parse(req.headers.cookie ?? '');
         const access = cookies.access ?? false;
-        console.log(cookies);
         if (!access) {
             return res.status(403).json({
                 error: 'User forbidden from making the request'

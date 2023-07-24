@@ -8,7 +8,6 @@ export default function UserListModalItem(user: User) {
 
     useEffect(() => {
         setIsFollowing(user?.is_following || false);
-        console.log(user);
     }, [user]);
 
     const follow = (user_id: string) => {

@@ -12,9 +12,9 @@ export default function PostModal(props: IProps) {
     const { id, user, profile_picture, is_liked, likes, like_count, comments, comments_count, image_url, description } = props.post;
 
     return (
-        <div className="flex items-center justify-center min-h-screen fixed inset-0 outline-none z-50 focus:outline-none">
+        <div className="flex items-center justify-center min-h-screen overflow-y-auto fixed inset-0 outline-none z-50 focus:outline-none">
             <div className="z-20 opacity-50 fixed inset-0 bg-black" onClick={() => props.closeModal()}></div>
-            <div className="z-30 flex flex-col md:flex-row w-[60%] bg-white rounded overflow-y-hidden md:h-[48rem]">
+            <div className="z-30 flex flex-col md:flex-row w-full md:w-[80%] xl:w-[60%] bg-white rounded overflow-y-hidden md:h-[48rem]">
                 <div className="md:w-3/5 flex self-stretch justify-center border-r dark:border-zinc-800 bg-black">
                     <Image
                         src={image_url || ''}
