@@ -27,7 +27,7 @@ export default function RegisterForm(props: IProps) {
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('Username is required'),
         email: Yup.string().required('Email is required'),
-        password: Yup.string().required('Password is required'),
+        password: Yup.string().required('Password is required').min(8, 'Password is too short - should be 8 chars minimum.'),
         password2: Yup.string().required('Repeat your password'),
         first_name: Yup.string().required('First name is required'),
         last_name: Yup.string().required('Last name is required'),
@@ -42,8 +42,8 @@ export default function RegisterForm(props: IProps) {
     const { errors } = formState;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+        setErrorMessage("");
         const { username, email, password, password2, first_name, last_name, bio, location } = data;
-
         const body = JSON.stringify({
             username: username,
             email: email,
@@ -56,35 +56,39 @@ export default function RegisterForm(props: IProps) {
                 location: location,
                 isActive: true
             }
-
         })
-        await fetch("/api/accounts/register/", {
-            method: "POST",
-            body: body,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        }).then(async (response) => {
-            try {
-                const resp = await login(username, password);
-                if (resp.status == 200) {
-                    router.reload()
+        try {
+            await fetch("/api/accounts/register/", {
+                method: "POST",
+                body: body,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).then(async (response) => {
+                if(response.status == 201){
+                    try {
+                        await login(username, password);
+                        router.reload();
+                    } catch (error) {
+                         console.error(error);
+                         setErrorMessage("Internal Server Error");
+                         if (typeof error === "string") {
+                             error.toUpperCase();
+                         } else if (error instanceof Error) {
+                             error.message;
+                         }
+                    }
+                } else {
+                    console.error("Internal Server Error");
+                    setErrorMessage("Something went wrong with your registration")
                 }
-                if (resp.status === 401) {
-                    setErrorMessage("Invalid login credentials");
-                }
-            } catch (error) {
-                console.error(error);
-                setErrorMessage("Internal Server Error");
-                if (typeof error === "string") {
-                    error.toUpperCase();
-                } else if (error instanceof Error) {
-                    error.message;
-                }
-            }
-
-        })
+            })
+        }
+        catch(error) {
+            console.error(error);
+            setErrorMessage("Internal Server Error");
+        }
     }
     
     return (
@@ -148,7 +152,7 @@ export default function RegisterForm(props: IProps) {
                         <p className="text-xs mt-1 italic text-red-500">{errors.location.message}</p>
                     )}
                 </div>
-                {errorMessage && <div className=" text-red-600 text-center text-sm ">{errorMessage}</div>}
+                {errorMessage && <div className=" text-red-600 text-center text-sm mb-2">{errorMessage}</div>}
                 <div className="w-full">
                     <input className="px-6 py-2 w-full text-white bg-blue-600 hover:bg-blue-900" type="submit" value="Register" />
                 </div>

@@ -11,9 +11,7 @@ type FormValues = {
 
 
 export default function Upload() {
-    const [isDisabled, setIsDisabled] = useState(true)
-
-    const FILE_SIZE = 16000 * 1024;
+    const FILE_SIZE = 10000 * 1048; // 10MB
     const SUPPORTED_FORMATS = [
         "image/jpg",
         "image/jpeg",
@@ -32,7 +30,7 @@ export default function Upload() {
         "required", 
         "Please select a file", 
         function(value: any | undefined, testContext: Yup.TestContext) {
-            if( value instanceof FileList){
+            if( value instanceof FileList) {
                 return value.length > 0
             } else {
                 return false;
@@ -43,8 +41,8 @@ export default function Upload() {
           "fileSize",
           "File too large",
           function(value: any | undefined, testContext: Yup.TestContext) {
-            if( value instanceof FileList){
-                return value[0].size <= FILE_SIZE
+            if( value instanceof FileList) { 
+                return value.length > 0 && value[0].size <= FILE_SIZE
             } else {
                 return false;
             }
@@ -53,13 +51,13 @@ export default function Upload() {
           "fileFormat",
           "Unsupported Format",
           function(value: any | undefined, testContext: Yup.TestContext) {
-            if( value instanceof FileList){
-                return SUPPORTED_FORMATS.includes(value[0].type)
+            if( value instanceof FileList) {
+                return value.length > 0 && SUPPORTED_FORMATS.includes(value[0].type)
             } else {
                 return false;
             }
         }),
-        description: Yup.string(),
+        description: Yup.string().required(),
     });
 
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -77,12 +75,12 @@ export default function Upload() {
         fetch("/api/posts/upload/", {
             method: "POST",
             body: form,
-
             credentials: "include"
         }).then(async (response) => {
             try {
                 if (response.status == 201) {
                     setSuccessMessage("Image was successfully posted");
+                    setSelectedImage(null);
                     reset();
                 }
                 if (response.status === 401 || response.status === 500) {

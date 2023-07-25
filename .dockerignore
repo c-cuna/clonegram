@@ -5,9 +5,9 @@
 .gitignore
 
 # Next JS
-.next/                # Existing Next.js builds
-node_modules/         # Installed inside container
-nginx/                # We'll create this directory soon
+.next/
+node_modules/
+nginx/
 
 # Docker
 .docker

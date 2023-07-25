@@ -51,7 +51,7 @@ export default function UploadProfilePictureForm() {
           "File too large",
           function(value: any | undefined, testContext: Yup.TestContext) {
             if( value instanceof FileList){
-                return value[0].size <= FILE_SIZE
+                return value.length > 0 && value[0].size <= FILE_SIZE
             } else {
                 return false;
             }
@@ -61,7 +61,7 @@ export default function UploadProfilePictureForm() {
           "Unsupported Format",
           function(value: any | undefined, testContext: Yup.TestContext) {
             if( value instanceof FileList){
-                return SUPPORTED_FORMATS.includes(value[0].type)
+                return value.length > 0 && SUPPORTED_FORMATS.includes(value[0].type)
             } else {
                 return false;
             }
@@ -93,6 +93,7 @@ export default function UploadProfilePictureForm() {
                
                 if (response.status == 200) {
                     setSuccessMessage("Profile picture successfuly updated!");
+                    setSelectedImage(null);
                     reset();
                 }
                 if (response.status === 401) {

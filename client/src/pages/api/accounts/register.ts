@@ -19,7 +19,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (req.method === 'POST') {
-      
         try {
             const url = process.env.NEXT_PUBLIC_API + `/accounts/register/`;
             const APIRes = await fetch(url, {
@@ -40,6 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 res.status(APIRes.status).json({ error: 'Internal Server Error' });
             }
         } catch(err) {
+            console.log(err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     } else {

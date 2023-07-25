@@ -13,8 +13,9 @@ A simple clone of instagram written in django and nextjs.
 
 ## Missing Features
 * Chat Component
-* User specific Dark/Light Mode
+* Unit Testing
 * Celery Integraton
+* User specific Dark/Light Mode
 
 ## Quick Start
 ### Deploying for Development

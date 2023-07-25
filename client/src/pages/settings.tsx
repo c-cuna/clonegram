@@ -16,6 +16,7 @@ export default function Settings() {
     const logoutUser = () => {
         logout();
         router.push('/');
+        router.reload();
     }
     return (
         <Layout>
