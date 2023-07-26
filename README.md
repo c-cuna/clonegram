@@ -64,4 +64,4 @@ $ docker compose logs -f
 ```
 
 ## License
-MIT (c) 2023-presen c-cuna and Contributors
+[MIT](https://github.com/c-cuna/clonegram/blob/main/LICENSE) (c) 2023 c-cuna
