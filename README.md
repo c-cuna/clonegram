@@ -24,10 +24,24 @@ Run application
 $ docker compose up -d --build
 ```
 
+Load server's static images
+```
+$ docker compose exec server python manage.py collectstatic --no-input --clear
+```
+
 Get logs
 ```
 $ docker compose logs -f
 ```
+
+Swagger/Redoc URLs
+```
+/api/v1/swagger/
+/api/v1/redoc/
+/api/v1/swagger.<format>/ # yaml/json
+```
+
+
 ### Deploying for Production
 Run application
 ```
@@ -37,7 +51,11 @@ $ docker compose -f docker-compose.prod.yml up -d --build
 Run Database scripts
 ```
 $ docker compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-$ docker compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+```
+
+Load server's static images
+```
+$ docker compose exec server python manage.py collectstatic --no-input --clear
 ```
 
 Get logs

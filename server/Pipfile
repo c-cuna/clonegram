@@ -19,6 +19,7 @@ channels = {extras = ["daphne"], version = "*"}
 psycopg2 = "*"
 python-dotenv = "*"
 django-pagination = "*"
+drf-yasg = "*"
 
 [dev-packages]
 autopep8 = "*"
