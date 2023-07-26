@@ -62,3 +62,6 @@ Get logs
 ```
 $ docker compose logs -f
 ```
+
+## License
+MIT (c) 2023-presen c-cuna and Contributors
