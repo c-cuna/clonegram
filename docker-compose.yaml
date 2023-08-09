@@ -60,7 +60,7 @@ services:
       - server
   
   nginx:
-    build: ./nginx
+    build: ./proxy
     volumes:
       - static_data:/app/static
       - media_data:/app/media
