@@ -17,7 +17,7 @@ services:
 
   server:
     build:
-      context: ./server
+      context: ./
       dockerfile: Dockerfile
     command: python3 manage.py runserver 0.0.0.0:8000
     expose:
@@ -33,7 +33,7 @@ services:
 
   asgiserver:
     build:
-      context: ./server
+      context: ./
       dockerfile: Dockerfile
     expose:
       - 9000

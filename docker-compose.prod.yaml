@@ -16,7 +16,7 @@ services:
 
   server:
     build:
-      context: ./server
+      context: ./
       dockerfile: Dockerfile.prod
     command: gunicorn clonegram.wsgi:application --bind 0.0.0.0:8000 --workers=4
     expose:
@@ -32,7 +32,7 @@ services:
 
   asgiserver:
     build:
-      context: ./server
+      context: ./
       dockerfile: Dockerfile.prod
     expose:
       - 9000
