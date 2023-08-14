@@ -1,5 +1,6 @@
 # Clonegram
 A simple clone of instagram written in django and nextjs.
+![home-light](https://github.com/c-cuna/clonegram/assets/122253189/f1e9df89-471d-4d02-9af2-6f9173ddd3e6)
 
 ## Key Features
 * User authentication and authorization
