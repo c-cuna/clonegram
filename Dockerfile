@@ -6,7 +6,7 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 COPY Pipfile Pipfile.lock /app/
 RUN pip install pipenv &&  pipenv install --system
-COPY ./entrypoint.sh .
+COPY ./scripts/entrypoint.sh .
 RUN sed -i 's/\r$//g' /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 COPY . .

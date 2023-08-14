@@ -71,15 +71,17 @@ export default function RegisterForm(props: IProps) {
                         await login(username, password);
                         router.reload();
                     } catch (error) {
-                         console.error(error);
+                       
+                         
                          setErrorMessage("Internal Server Error");
                          if (typeof error === "string") {
-                             error.toUpperCase();
+                            console.error(error.toUpperCase());
                          } else if (error instanceof Error) {
-                             error.message;
+                            console.error(error.message);
                          }
                     }
                 } else {
+                    response.text().then(text => { console.error(text) })
                     console.error("Internal Server Error");
                     setErrorMessage("Something went wrong with your registration")
                 }

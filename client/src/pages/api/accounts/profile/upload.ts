@@ -47,7 +47,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 const data = await APIRes.json();
                 return res.status(200).json(data);
             } else {
-
                 return res.status(APIRes.status).json({ message: 'Internal Server Error' });
             }
         } catch(err) {
