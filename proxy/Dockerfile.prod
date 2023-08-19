@@ -1,0 +1,7 @@
+FROM nginx:alpine
+RUN rm /etc/nginx/conf.d/*
+COPY default.prod.conf /etc/nginx/conf.d/
+EXPOSE 80
+EXPOSE 443
+# USER nginx
+CMD [ "nginx", "-g", "daemon off;" ]

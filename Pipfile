@@ -20,6 +20,7 @@ psycopg2 = "*"
 python-dotenv = "*"
 django-pagination = "*"
 drf-yasg = "*"
+django-nextjs = "*"
 
 [dev-packages]
 autopep8 = "*"
