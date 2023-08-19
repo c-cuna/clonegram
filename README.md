@@ -37,6 +37,12 @@ Get logs
 $ docker compose logs -f
 ```
 
+Run Next.Js Server
+```
+$ cd /client
+$ npm run dev
+```
+
 Swagger/Redoc URLs
 ```
 /api/v1/swagger/
