@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const {username, email, password, password2, first_name, last_name, bio, location} = req.body
+    const {username, email, password, password2, first_name, last_name,} = req.body
     const body = JSON.stringify({
         username: username,
         email: email,
@@ -11,11 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         password2: password2,
         first_name: first_name,
         last_name: last_name,
-        profile: {
-            bio: bio,
-            location: location,
-        }
-
+        profile: {}
     });
 
     if (req.method === 'POST') {
@@ -31,12 +27,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
            
             const data = await APIRes.json();
-
             if (APIRes.status === 201) {
                 return res.status(201).json({ success: data.success });
             } else {
                 console.log(APIRes.status);
-                res.status(APIRes.status).json({ error: 'Internal Server Error' });
+                console.log(data);
+                return res.status(APIRes.status).json(data)
             }
         } catch(err) {
             console.log(err);

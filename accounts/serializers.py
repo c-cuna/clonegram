@@ -30,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 	def update(self, instance, validated_data):
-		print(validated_data)
 		profile_data = validated_data.pop('profile')
 		instance.username = validated_data.get('username', instance.username)
 		instance.email = validated_data.get('email', instance.email)
@@ -108,7 +107,6 @@ class AccountSerializer(serializers.ModelSerializer):
 		return attrs
 
 	def create(self, validated_data):
-		profile = validated_data.pop('profile')
 		user = User.objects.create(
 			username=validated_data['username'],
         	email=validated_data['email'],
@@ -117,7 +115,7 @@ class AccountSerializer(serializers.ModelSerializer):
 		)
 		user.set_password(validated_data['password'])
 		user.save()
-		Profile.objects.create(user=user, **profile)
+		Profile.objects.create(user=user)
 		return user
 	
 	def update(self, instance, validated_data):

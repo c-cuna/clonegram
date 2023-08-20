@@ -200,8 +200,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             "profile_picture",
         ]
     
-
-    
 class ProfilePictureSerializer(serializers.ModelSerializer):
     profile_picture = serializers.ImageField(required=False)
     class Meta:

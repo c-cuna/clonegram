@@ -25,9 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 },
                 body: body
             });
-
             const data = await APIRes.json();
-
             if (APIRes.status === 200) {
                 res.setHeader('Set-Cookie', [
                     cookie.serialize(

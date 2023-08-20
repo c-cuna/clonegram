@@ -11,7 +11,7 @@ export default function AuthFormContainer() {
                 <title>Clonegram</title>
             </Head>
             <main>
-                <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="flex items-center justify-center min-h-screen bg-auth-blue md:bg-banner bg-cover bg-center bg-no-repeat bg-blend-multiply">
                     <div className={openForm === 0 ? "block" : "hidden"} id="link0">
                         <LoginForm setOpenForm={setOpenForm} />
                     </div>
